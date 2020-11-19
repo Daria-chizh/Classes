@@ -73,3 +73,33 @@ test('Character constructor1', () => {
 test('Character constructor2', () => {
   expect(() => new Character('Mag')).toThrowError('Строка не соответствует образцу');
 });
+
+test('use method levelUp true', () => {
+  const character = new Character('Bowman', 'Bowman', 25, 25);
+  character.levelUp();
+  expect(character.health).toBe(100);
+  expect(character.level).toBe(2);
+  expect(character.attack).toBe(30);
+  expect(character.defence).toBe(30);
+});
+
+test('use method levelUp = 0', () => {
+  const character = new Character('Bowman', 'Bowman', 25, 25);
+  character.health = 0;
+  expect(() => character.levelUp()).toThrowError('Нельзя повысить уровень умершего');
+});
+
+test('use method damage > 0', () => {
+  const character = new Character('Bowman', 'Bowman', 25, 25);
+  character.damage(1);
+  expect(character.health).toBe(99.25);
+  expect(character.defence).toBe(25);
+});
+
+test('use method damage < 0', () => {
+  const character = new Character('Bowman', 'Bowman', 25, 25);
+  character.health = -2;
+  character.damage(1);
+  expect(character.health).toBe(-2);
+  expect(character.defence).toBe(25);
+});
